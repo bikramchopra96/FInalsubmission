@@ -1,0 +1,157 @@
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>Finance</title>
+    <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    <style>
+        canvas{
+        margin-bottom:2%;
+        max-height:400px;
+        }
+    </style>
+</head>
+<body>
+<div  class="container" >
+    <h1 align="center">XYZ Organistaion</h1>
+            <hr/>
+    <div class="row">
+        <div class="col-lg-12 col-sm-12">
+            <p>The following Chart represents the variation of Equity High and Low starting from {{start}} to {{end}}</p>
+            <canvas id='Chart-high-low' width="100px" height="50px"></canvas>
+        </div>
+        <div class="col-lg-12 col-sm-12">
+            <p>The following Chart represents the variation of Equity Open and Close starting from {{start}} to {{end}}</p>
+            <canvas id='Chart-open-close' width="100px" height="50px"></canvas>
+        </div>
+        <div class="col-lg-12 col-sm-12">
+            <p>The following Chart represents the variation of Exchange Volume starting from {{start}} to {{end}}</p>
+            <canvas id='Chart-volume' width="100px" height="50px"></canvas>
+        </div>
+    </div>
+</div>
+<script>
+var ctx_high_low = document.getElementById('Chart-high-low').getContext('2d');
+var ctx_open_close = document.getElementById('Chart-open-close').getContext('2d');
+var ctx_volume = document.getElementById('Chart-volume').getContext('2d');
+var x_axis = {{ x|safe }};
+new Chart(ctx_high_low, {
+  type: 'line',
+  data: {
+    labels: x_axis,
+    datasets: [{
+        data: {{high|safe}},
+        label: "high",
+        borderColor: "#3e95cd",
+        fill: false
+      }, {
+        data: {{low|safe}},
+        label: "low",
+        borderColor: "#8e5ea2",
+        fill: false
+      }
+    ]
+  },
+  options: {
+    title: {
+      display: true,
+      text: 'Equity High Low'
+    },
+    scales: {
+    yAxes: [{
+      scaleLabel: {
+        display: true,
+        labelString: 'Stock Value'
+      }
+    }],
+    xAxes: [{
+      scaleLabel: {
+        display: true,
+        labelString: 'Time'
+      }
+    }],
+  }
+  }
+});
+new Chart(ctx_open_close, {
+  type: 'line',
+  data: {
+    labels: x_axis,
+    datasets: [ {
+        data: {{open|safe}},
+        label: "open",
+        borderColor: "#3cba9f",
+        fill: false
+      }, {
+        data: {{close|safe}},
+        label: "close",
+        borderColor: "#e8c3b9",
+        fill: false
+      }
+    ]
+  },
+  options: {
+    title: {
+      display: true,
+      text: 'Equity open-close'
+    },
+    scales: {
+    yAxes: [{
+      scaleLabel: {
+        display: true,
+        labelString: 'Stock Value'
+      }
+    }],
+    xAxes: [{
+      scaleLabel: {
+        display: true,
+        labelString: 'Time'
+      }
+    }],
+  }
+    }
+});
+new Chart(ctx_volume, {
+  type: 'line',
+  data: {
+    labels: x_axis,
+    datasets: [ {
+        data: {{volume|safe}},
+        label: "volume",
+        borderColor: "#8e5ea2",
+        fill: false
+      }
+    ]
+  },
+  options: {
+    title: {
+      display: true,
+      text: 'Equity Volume'
+    },
+    scales: {
+    yAxes: [{
+      scaleLabel: {
+        display: true,
+        labelString: ' Quantity'
+      }
+    }],
+    xAxes: [{
+      scaleLabel: {
+        display: true,
+        labelString: 'Time'
+      }
+    }],
+  }
+  }
+});
+</script>
+</body>

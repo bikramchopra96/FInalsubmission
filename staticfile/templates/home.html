@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>Finance</title>
+    <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href= "{% static 'bootstrap-4.0.0-dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet"  href= "{% static 'style.css' %}">
+    <script src="{% static 'jquery-3.4.1.min.js'  %}"></script>
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>-->
+    <script src="{% static 'bootstrap-4.0.0-dist/js/bootstrap.min.js' %}"></script>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+</head>
+<body>
+    <div class="container-fluid" style="max-width:95%">
+        <h1 align="center">XYZ Organistaion</h1>
+            <hr/>
+            <section class="selection-bar">
+                <div align="center">
+                    <button class="btn  default" onclick="showtoday()">Today</button>
+                    <button class="btn default" onclick="showyear()">This Year</button>
+                </div>
+            </section>
+            <hr/>
+        <section id="yearly">
+            <div class="row">
+        <div class="col-lg-4 cell">
+            <h3> Equity Low</h3>
+            <img class="img-fluid" src="{% static 'plots/plot1.png'%}" alt="plot 1">
+        </div>
+        <div class="col-lg-4 cell">
+            <h3> Equity Close</h3>
+            <img class="img-fluid" src="{% static 'plots/plot2.png'%}" alt="plot 2">
+        </div>
+        <div class="col-lg-4 cell">
+            <h3> Equity Open</h3>
+            <img class="img-fluid" src="{% static 'plots/plot3.png'%}" alt="plot 3">
+        </div>
+        <div class="col-lg-4 cell">
+            <h3> Equity Volume</h3>
+            <img class="img-fluid" src="{% static 'plots/plot4.png'%}" alt="plot 4">
+        </div>
+        <div class="col-lg-4 cell">
+            <h3> Equity high</h3>
+            <img class="img-fluid" src="{% static 'plots/plot5.png'%}" alt="plot 5">
+        </div>
+    </div>
+        </section>
+        <section id="day" style="display:none">
+            <div class="row">
+        <div class="col-lg-4 cell">
+            <h3>Day Equity Low</h3>
+            <img class="img-fluid" src="{% static 'plots/plot1.png'%}" alt="plot 1">
+        </div>
+        <div class="col-lg-4 cell">
+            <h3> Equity Close</h3>
+            <img class="img-fluid" src="{% static 'plots/plot2.png'%}" alt="plot 2">
+        </div>
+        <div class="col-lg-4 cell">
+            <h3> Equity Open</h3>
+            <img class="img-fluid" src="{% static 'plots/plot3.png'%}" alt="plot 3">
+        </div>
+        <div class="col-lg-4 cell">
+            <h3> Equity Volume</h3>
+            <img class="img-fluid" src="{% static 'plots/plot4.png'%}" alt="plot 4">
+        </div>
+        <div class="col-lg-4 cell">
+            <h3> Equity high</h3>
+            <img class="img-fluid" src="{% static 'plots/plot5.png'%}" alt="plot 5">
+        </div>
+    </div>
+        </section>
+    </div>
+
+<script>
+        function showtoday(){
+    console.log("Images Clicked");
+    document.getElementById("day").style.display = "block";
+    document.getElementById("yearly").style.display = "none";
+    }
+    function showyear(){
+    console.log("Videos Clicked");
+    document.getElementById("day").style.display = "none";
+    document.getElementById("yearly").style.display = "block";
+    }
+</script>
+</body>
+
+</html>

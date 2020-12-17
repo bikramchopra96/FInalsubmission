@@ -1,0 +1,27 @@
+body{
+     background-color : #F1F3F6;
+}
+
+.cell{
+padding: 2%;
+align:center;
+margin-bottom:5px;
+}
+
+h1{
+font-size:2rem;
+}
+
+.cell h3{
+font-size:1.3rem;
+text-align: center;
+}
+
+.btn {
+  background-color: inherit;
+  padding: 14px 28px;
+  font-size: 1.25rem;
+  cursor: pointer;
+  display: inline-block;
+}
+.btn:hover {background: #eee;}
