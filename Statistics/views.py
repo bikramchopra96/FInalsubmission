@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import JsonResponse
 import simplejson as json
 from datetime import datetime
@@ -8,6 +8,8 @@ from .serializers import api_serializer
 from .models import YearlyTable
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from .forms import AddForm
+from django.db.models import Max
 
 
 class apiViewSet(viewsets.ModelViewSet):
@@ -30,22 +32,6 @@ def getrangeapi(request,slug):
 
 
 # Create your views here.
-
-def showcharts(request):
-    # ModelName.objects.values('Colum_name') To get list of column
-    daytime = YearlyTable.objects.values('timestamp').order_by('timestamp')
-    start = daytime[0]['timestamp']
-    end = daytime[len(daytime) - 1]['timestamp']
-    x = [time['timestamp'].strftime("%H:%M") for time in daytime]
-    high = [numbers['high'] for numbers in YearlyTable.objects.values('high').order_by('timestamp')]
-    low = [numbers['low'] for numbers in YearlyTable.objects.values('low').order_by('timestamp')]
-    open = [numbers['open'] for numbers in YearlyTable.objects.values('open').order_by('timestamp')]
-    close = [numbers['close'] for numbers in YearlyTable.objects.values('close').order_by('timestamp')]
-    volume = [numbers['volume'] for numbers in YearlyTable.objects.values('volume').order_by('timestamp')]
-    return render(request,'charts.html',{'x':json.dumps(x),'high':json.dumps(high),'low':json.dumps(low),
-                                         'open':json.dumps(open),'close':json.dumps(close),'volume':json.dumps(volume),
-                                         'start':start,'end':end})
-
 
 def getdata(request):
     ''' To fetch data from api and storing it in our database'''
@@ -98,3 +84,55 @@ def getdata(request):
         row.save()
 
     return JsonResponse({'status': 'sucess'})
+
+def addfields(request):
+    if(request.method == 'POST'):
+        data = request.POST
+        form = AddForm(data)
+        if form.is_valid():
+            print('Saving the form')
+            user = form.save(commit=False)
+            #Incrementing index by one
+            user.index = YearlyTable.objects.aggregate(Max('index'))['index__max'] + 1
+            user.save()
+            return redirect('/')
+
+    return render(request, "addfields.html", {'form' : AddForm()})
+
+
+
+def show(request):
+    records = YearlyTable.objects.all().order_by('index')
+    return render(request,"show.html",{'records':records})
+
+def deleteview(request,id):
+    record = YearlyTable.objects.get(index=id)
+    if(request.method == 'POST'):
+        record.delete()
+        return redirect('/')
+
+    return render(request,"delete.html",{'record':record})
+
+def updatefields(request,id):
+    current_record = YearlyTable.objects.get(index=id)
+    print(current_record)
+    if(request.method == 'POST'):
+        data = request.POST
+        form = AddForm(data)
+        if form.is_valid():
+            #Updating the record if all the new details are valid
+            current_record.timestamp = data['timestamp']
+            current_record.open = data['open']
+            current_record.close = data['close']
+            current_record.high = data['high']
+            current_record.low = data['low']
+            current_record.volume = data['volume']
+            current_record.save()
+            return redirect('/')
+
+    return render(request, "update.html", {'form' : AddForm({'timestamp':current_record.timestamp,
+                                                             'high':current_record.high,
+                                                             'low':current_record.low,
+                                                             'open':current_record.open,
+                                                             'close':current_record.close,
+                                                             'volume':current_record.volume})})

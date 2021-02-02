@@ -22,12 +22,15 @@ router = routers.DefaultRouter()
 router.register(r'getall', views.apiViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.showcharts),
+    path('', views.show),
     path('fetch_api/',views.getdata),
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('getone/<int:id>/',views.get1api),
-    path('getbyrange/<str:slug>/',views.getrangeapi)
+    path('getbyrange/<str:slug>/',views.getrangeapi),
+    path('add_new/',views.addfields),
+    path('delete/<id>', views.deleteview ),
+    path('edit/<id>', views.updatefields ),
 
 
 ]

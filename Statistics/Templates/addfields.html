@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Add New Records</title>
+    <style>
+      body {font:12px/1.4 Verdana,Arial; background:#eee; height:100%; margin:25px 0; padding:0}
+  </style>
+</head>
+{% load crispy_forms_tags %}
+<body>
+<div class="container">
+
+    <div class="col-lg-4" align="center">
+        <h1 align="center">Add new record</h1>
+        <form action=""  method="POST" >
+        {% csrf_token %}
+    <!--    {% crispy form %}-->
+            {{form|crispy}}
+        <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        </div>
+</div>
+</body>
+</html>
