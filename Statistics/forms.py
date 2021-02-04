@@ -4,7 +4,7 @@ from .models import YearlyTable
 
 # creating a form
 class AddForm(forms.ModelForm):
-    # create meta class
+    
     class Meta:
         # specify model to be used
         model = YearlyTable
