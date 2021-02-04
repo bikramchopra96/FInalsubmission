@@ -5,3 +5,4 @@ requests
 djangorestframework
 django-crispy-forms
 numpy
+psycopg2
