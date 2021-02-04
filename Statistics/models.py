@@ -1,6 +1,6 @@
 from django.db import models
 
-# Create your models here.
+# Create your models here. named it according to data
 class YearlyTable(models.Model):
     productdate = models.DateTimeField(auto_now_add=True,auto_now=False)
     index = models.IntegerField()
