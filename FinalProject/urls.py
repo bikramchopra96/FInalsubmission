@@ -31,7 +31,7 @@ urlpatterns = [
     path('add_new/',views.addfields),
     path('delete/<id>', views.deleteview ),
     path('edit/<id>', views.updatefields ),
-
+    path('abc/',views.sucess)
 
 ]
 

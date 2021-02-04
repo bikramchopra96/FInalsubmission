@@ -95,7 +95,7 @@ def addfields(request):
             #Incrementing index by one
             user.index = YearlyTable.objects.aggregate(Max('index'))['index__max'] + 1
             user.save()
-            return redirect('/')
+            return redirect('/abc/')
 
     return render(request, "addfields.html", {'form' : AddForm()})
 
@@ -109,7 +109,7 @@ def deleteview(request,id):
     record = YearlyTable.objects.get(index=id)
     if(request.method == 'POST'):
         record.delete()
-        return redirect('/')
+        return redirect('/abc/')
 
     return render(request,"delete.html",{'record':record})
 
@@ -128,7 +128,7 @@ def updatefields(request,id):
             current_record.low = data['low']
             current_record.volume = data['volume']
             current_record.save()
-            return redirect('/')
+            return redirect('/abc/')
 
     return render(request, "update.html", {'form' : AddForm({'timestamp':current_record.timestamp,
                                                              'high':current_record.high,
@@ -136,3 +136,6 @@ def updatefields(request,id):
                                                              'open':current_record.open,
                                                              'close':current_record.close,
                                                              'volume':current_record.volume})})
+
+def sucess(request):
+    return render(request,'success.html')
