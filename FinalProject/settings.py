@@ -78,10 +78,21 @@ WSGI_APPLICATION = 'FinalProject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'zgqjalhs',
+        'USER' : 'zgqjalhs',
+        'PASSWORD': '7d6fYXOGX1tTlA7u6Eh_rjOM8taD0Kjl',
+        'HOST' : 'topsy.db.elephantsql.com',
+        'PORT' : '5432',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 
 
 # Password validation
