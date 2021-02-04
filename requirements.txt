@@ -4,3 +4,4 @@ simplejson
 requests
 djangorestframework
 django-crispy-forms
+numpy
