@@ -31,7 +31,7 @@ def getrangeapi(request,slug):
     return Response(serializer.data)
 
 
-# Create your views here.
+# Create your views here. fetching data
 
 def getdata(request):
     ''' To fetch data from api and storing it in our database'''
